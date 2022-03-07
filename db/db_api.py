@@ -290,7 +290,7 @@ class Message(BaseModel):
     @classmethod
     def delete_all_older_than_today(cls):
         with db.atomic():
-            return cls.delete().where(fn.date_trunc('day', cls.date) < datetime.date.today())
+            return cls.delete().where(fn.date_trunc('day', cls.date) < datetime.date.today()).execute()
 
 class Subscription(BaseThroughModel):
     user = ForeignKeyField(User, backref='subscriptions', on_delete='CASCADE')
