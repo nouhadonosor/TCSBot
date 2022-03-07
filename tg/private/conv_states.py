@@ -15,7 +15,7 @@ class ConvStates:
                 #
 
         def __getattribute__(self, __name: str):
-            if not __name == '__dict__':
+            if not __name == '__dict__' and __name[0].isupper():
                 if __name in self.__dict__:
                     return __name
             return super().__getattribute__(__name)

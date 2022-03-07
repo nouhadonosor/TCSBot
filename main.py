@@ -1,4 +1,5 @@
 import argparse
+import datetime
 import logging
 
 from telegram.ext import Updater
@@ -7,6 +8,9 @@ from config.global_config import GLOBAL_CONFIG
 from db.db_api import setup_db
 from test import test
 from tg.group.handlers.entrypoint_handler import GROUP_HANDLER
+from tg.jobs.cleanup_routine import delete_old_msgs
+from tg.jobs.notifier import notify_users_group_statistics
+from tg.private.error_handlers import to_main_on_exception
 from tg.private.handlers.conv_handler import PRIVATE_HANDLER
 
 def main():
@@ -42,6 +46,13 @@ def main():
 
     dispatcher.add_handler(GROUP_HANDLER)
     dispatcher.add_handler(PRIVATE_HANDLER)
+    
+    dispatcher.add_error_handler(to_main_on_exception)
+
+    job_queue = updater.job_queue
+    job_queue.run_daily(notify_users_group_statistics, datetime.time(0, 0, 0))
+    job_queue.run_daily(delete_old_msgs, datetime.time(0, 0, 0))
+    #job_queue.run_repeating(notify_users_group_statistics, 5, 0)
 
     #POLLING
     print('Polling...')

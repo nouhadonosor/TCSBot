@@ -1,3 +1,6 @@
+from math import trunc
+
+
 class ThreadCounter:
     def __init__(self) -> None:
         self.counters = {}
@@ -15,22 +18,8 @@ class ThreadCounter:
             self.counters[self.pointers[repl_mes_id]] += 1
             self.pointers[mes_id] = self.pointers[repl_mes_id]
 
-class ThreadMessage:
-    def __init__(self, message):
-        #self.message = message
-        #self.replies = []
-        self.replies_ids = []
-        self.replies_count = 0
-
-    def __add_new_message_to_replies(self, message):
-        self.replies.append(message)
-        self.replies_ids.append(message.message_id)
-        self.replies_count += 1
-
-    def add_reply(self, reply_message):
-        if reply_message.reply_to_message:
-            origin_id = reply_message.reply_to_message.message_id
-            if origin_id in self.replies_ids or origin_id == self.message.message_id:
-                self.__add_new_message_to_replies(reply_message)
-                return True
-        return False
+def chunkify(a, nn):
+    len_a = len(a)
+    n = trunc(len_a / nn) + 1
+    k, m = divmod(len_a, n)
+    return list(a[i * k + min(i, m):(i + 1) * k + min(i + 1, m)] for i in range(n))

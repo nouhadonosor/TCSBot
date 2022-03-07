@@ -7,7 +7,7 @@ def test_case_1():
     q = Message.prefetch()
     a = list(q)
     chat = Chat.get(type='supergroup')
-    q1 = Message.get_statistics(chat, datetime.date(2022, 3, 3))
+    q1 = Message.get_statistics_on_day()#on_date_day= datetime.date(2022, 3, 3))
     #a[0].reply_to_message
     #u = User.create_or_replace_pk_safe(id=12335, username='wwwwww')
     q1 = q.where(Message.date <= datetime.date(2022, 3, 3))
@@ -59,4 +59,9 @@ def test_case_2():
 
     c.STATE_A = 'HELLO'
     
+    pass
+
+def test_case_3():
+    u = User.get_by_id(421190347)
+    q = Chat.prefetch_subscribed_for_user(u)
     pass

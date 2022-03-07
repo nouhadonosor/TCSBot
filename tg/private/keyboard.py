@@ -1,8 +1,8 @@
 from telegram import ReplyKeyboardMarkup
 
-from tg.filter import MES_ADMIN, MES_CLIENT
-
-
+MES_CANCEL = 'Отмена'
+MES_SUBSCRIPTIONS = 'Подписки'
+MES_ADMIN = 'Админ'
 
 def keyboard_reply_main(is_admin=False):
     #if 'is_admin' in context.user_data:
@@ -12,13 +12,20 @@ def keyboard_reply_main(is_admin=False):
 
     if is_admin:
         buttons = [
-                    [MES_CLIENT, MES_ADMIN]
+                    [MES_SUBSCRIPTIONS, MES_ADMIN]
                 ]
     else:
         buttons = [
-                    [MES_CLIENT]
+                    [MES_SUBSCRIPTIONS]
                 ]
 
     keyboard = ReplyKeyboardMarkup(buttons, one_time_keyboard=True)
+    
+    return keyboard
+
+def keyboard_reply_cancel():
+    keyboard = ReplyKeyboardMarkup([
+                    [MES_CANCEL]
+                ], one_time_keyboard=True)
     
     return keyboard
