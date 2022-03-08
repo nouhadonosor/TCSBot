@@ -19,6 +19,8 @@ def main():
     parser.add_argument(
         "--setup_db", help="database init", action="store_true")
     parser.add_argument(
+        "--force_post_statistics", help="post statistics", action="store_true")
+    parser.add_argument(
         "--test", help="test", action="store_true")    
     parser.add_argument(
         "--log", help='logging level'
@@ -41,6 +43,10 @@ def main():
         raise SystemExit
 
     updater = Updater(GLOBAL_CONFIG.TELEGRAM_BOT_API_TOKEN, use_context=True)
+
+    if args.force_post_statistics:
+        notify_users_group_statistics(updater)
+        raise SystemExit
 
     dispatcher = updater.dispatcher
 
