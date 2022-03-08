@@ -9,14 +9,11 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    #image: rosbank/app_django
     command: /bin/sh -c "python main.py"
     #command: /bin/sh -c "sleep 9999h"
     restart: always
     volumes:
       - ./app/:/usr/src/app/
-    #ports:
-    #  - ${WEB_HOST_PORT}:8000
     environment:
       - TELEGRAM_BOT_API_TOKEN=${TELEGRAM_BOT_API_TOKEN}
       - DB_HOST=${DB_HOST}
