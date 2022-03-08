@@ -1,0 +1,47 @@
+version: '3.7'
+
+networks:
+    botnetwork:
+      name: botnetwork
+
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    #image: rosbank/app_django
+    command: /bin/sh -c "python main.py"
+    #command: /bin/sh -c "sleep 9999h"
+    restart: always
+    volumes:
+      - ./app/:/usr/src/app/
+    #ports:
+    #  - ${WEB_HOST_PORT}:8000
+    environment:
+      - TELEGRAM_BOT_API_TOKEN=${TELEGRAM_BOT_API_TOKEN}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+    depends_on:
+      - db
+    networks:
+      - botnetwork
+  
+  db:
+    image: postgres:13.2-alpine
+    restart: always
+    volumes:
+      - data-psql:/var/lib/postgresql/data/
+    ports:
+      - ${DB_PORT_EXTERNAL}:5432
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+    networks:
+      - botnetwork
+
+volumes:
+  data-psql:

@@ -1,7 +1,7 @@
 import datetime
 from db.db_api import *
 def test():
-    test_case_1()
+    test_case_4()
 
 def test_case_1():
     q = Message.prefetch()
@@ -65,3 +65,6 @@ def test_case_3():
     u = User.get_by_id(421190347)
     q = Chat.prefetch_subscribed_for_user(u)
     pass
+
+def test_case_4():
+    Message.delete_all_older_than_today()
