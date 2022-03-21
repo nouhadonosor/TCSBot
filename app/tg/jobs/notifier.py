@@ -4,6 +4,7 @@ import time
 from itertools import groupby
 
 from telegram import ParseMode
+from app.utils import trunc_str_pretty
 
 from db.db_api import Message, User
 
@@ -27,7 +28,7 @@ def notify_users_group_statistics(context):
                         reply_word += 'ов'
                 
                     text_list.append(
-                        f'{n+1}. {msg.text} - {msg.replies} {reply_word}\n<a href=\'{msg.link}\'>Ссылка</a>'
+                        f'{n+1}. {trunc_str_pretty(msg.text)} - {msg.replies} {reply_word}\n<a href=\'{msg.link}\'>Ссылка</a>'
                     )
                 text = '\n\n'.join(text_list)
                 context.bot.send_message(chat_id=user_id,

@@ -57,7 +57,7 @@ def main():
 
     job_queue = updater.job_queue
     job_queue.run_daily(notify_users_group_statistics, datetime.time(23, 0, 0))
-    job_queue.run_daily(delete_old_msgs, datetime.time(23, 0, 0))
+    job_queue.run_daily(delete_old_msgs, datetime.time(23, 30, 0))
     #job_queue.run_repeating(notify_users_group_statistics, 5, 0)
 
     #POLLING
