@@ -24,7 +24,7 @@ def chunkify(a, nn):
     k, m = divmod(len_a, n)
     return list(a[i * k + min(i, m):(i + 1) * k + min(i + 1, m)] for i in range(n))
 
-def trunc_str_pretty(s, n=30):
+def trunc_str_pretty(s, n=100):
     if len(s) > n:
         return s[0:n] + '...'
     else:

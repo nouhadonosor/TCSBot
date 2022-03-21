@@ -4,7 +4,7 @@ import time
 from itertools import groupby
 
 from telegram import ParseMode
-from app.utils import trunc_str_pretty
+from utils import trunc_str_pretty
 
 from db.db_api import Message, User
 
@@ -20,7 +20,7 @@ def notify_users_group_statistics(context):
         for subs_chat in subs_chat_ids:
             try:
                 text_list = [f'Ежедневная сводка по чату {subs_chat.title}']
-                for n, msg in enumerate(sorted(msg_dict[subs_chat.id], key=lambda x: x.replies)[:5]):
+                for n, msg in enumerate(sorted(msg_dict[subs_chat.id], key=lambda x: x.replies, reverse=True)[:5]):
                     reply_word = 'ответ'
                     if msg.replies >= 2 and msg.replies <= 4:
                         reply_word += 'а'
