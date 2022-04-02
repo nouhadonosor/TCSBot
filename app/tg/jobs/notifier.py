@@ -26,9 +26,14 @@ def notify_users_group_statistics(context):
                         reply_word += 'а'
                     elif msg.replies >= 5 and msg.replies <= 9 or msg.replies == 0:
                         reply_word += 'ов'
-                
+
+                    if msg.text:
+                        stat_msg = f'{n+1}. {trunc_str_pretty(msg.text)} - {msg.replies} {reply_word}\n<a href=\'{msg.link}\'>Ссылка</a>'
+                    else:
+                        stat_msg = f'{n+1}. {msg.replies} {reply_word}\n<a href=\'{msg.link}\'>Ссылка</a>'
+                    
                     text_list.append(
-                        f'{n+1}. {trunc_str_pretty(msg.text)} - {msg.replies} {reply_word}\n<a href=\'{msg.link}\'>Ссылка</a>'
+                        stat_msg
                     )
                 text = '\n\n'.join(text_list)
                 context.bot.send_message(chat_id=user_id,
