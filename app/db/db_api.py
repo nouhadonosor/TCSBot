@@ -256,7 +256,8 @@ class Message(BaseModel):
         return (q)
 
     @classmethod
-    def get_statistics_on_day(cls, chat: Chat = None, on_date_day=datetime.date.today()):
+    def get_statistics_on_day(cls, chat: Chat = None, on_date_day=None):
+        on_date_day = on_date_day if on_date_day else datetime.date.today()
         s = []
         #thcntr = ThreadCounter()
         thcntr_dict = {}
