@@ -23,7 +23,8 @@ jobs:
         file_name: .env
         fail_on_empty: false
     - name: Download a Build Artifact
-      uses: actions/download-artifact@v3.0.2
+      uses: actions/upload-artifact@v3.1.2
       with:
         # Artifact name
         name: env_container
+        
