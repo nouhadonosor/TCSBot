@@ -12,10 +12,18 @@ jobs:
     - name: Make envfile
       uses: SpicyPizza/create-envfile@v1.3
       with:
-        envkey_DEBUG: false
-        envkey_SOME_API_KEY: "123456abcdef"
-        envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        some_other_variable: foobar
+        envkey_TELEGRAM_BOT_API_TOKEN: "123"
+        envkey_DB_HOST: ${{ secrets.DB_HOST }}
+        envkey_DB_NAME: ${{ secrets.DB_NAME }}
+        envkey_DB_PASS: ${{ secrets.DB_PASS }}
+        envkey_DB_PORT: ${{ secrets.DB_PORT }}
+        envkey_DB_PORT_EXTERNAL: ${{ secrets.DB_PORT_EXTERNAL }}
+        envkey_DB_USER: ${{ secrets.DB_USER }}
         directory: ./
         file_name: .env
         fail_on_empty: false
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v3.0.2
+      with:
+        # Artifact name
+        name: env_container
